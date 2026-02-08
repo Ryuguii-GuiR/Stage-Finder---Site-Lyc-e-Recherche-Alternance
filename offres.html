@@ -17,13 +17,13 @@
     --blue-light: #2563eb;
     --blue-dark: #1e40af;
     --bg-light: #f9fafb;
-    --bg-dark: #121827; /* gris foncé plus chaud */
+    --bg-dark: #121827; 
     --text-light: #1f2937;
-    --text-dark: #e0e7ff; /* texte clair plus doux */
+    --text-dark: #e0e7ff; 
     --card-bg-light: white;
     --card-bg-dark: #1e293b;
     --input-bg-light: white;
-    --input-bg-dark: #374151; /* gris sombre plus chaud */
+    --input-bg-dark: #374151;
     --input-border-light: #ccc;
     --input-border-dark: #4b5563;
     --shadow-light: rgba(37, 99, 235, 0.3);
@@ -96,7 +96,7 @@
     box-shadow: 0 0 16px 4px var(--glow-dark);
   }
 
-  /* Icone bouton toggle */
+  
   #btn-toggle-theme i {
     font-size: 1.3rem;
     transition: transform 0.3s ease;
@@ -130,7 +130,7 @@
     flex-direction: column;
   }
 
-  /* TITRE OFFRES AVEC ANIMATION */
+ 
   #liste-offres h2 {
     margin-top: 0;
     margin-bottom: 15px;
@@ -173,7 +173,7 @@
     flex: 1 1 140px;
   }
 
-  /* Inputs "Début" et "Fin" côte à côte */
+  
   #date-filters {
     display: flex;
     gap: 10px;
@@ -289,19 +289,19 @@
     }
   }
 
-/* Popup leaflet personnalisé */
+
 .leaflet-popup-content-wrapper {
   border-radius: 14px !important;
-  background-color: white !important;  /* blanc en clair */
-  color: #1f2937;  /* texte foncé en clair */
+  background-color: white !important; 
+  color: #1f2937; 
   font-family: 'Poppins', sans-serif;
   box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
   padding: 10px 15px !important;
   min-width: 230px;
 }
 body.dark-mode .leaflet-popup-content-wrapper {
-  background-color: #2563eb !important;  /* bleu uniforme en sombre */
-  color: #e0e7ff;  /* texte clair */
+  background-color: #2563eb !important;  
+  color: #e0e7ff; 
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.8);
 }
 .leaflet-popup-tip {
@@ -357,7 +357,7 @@ body.dark-mode .leaflet-popup-tip {
     </div>
 
     <div id="offres-list-container" style="flex-grow:1; overflow-y:auto;" tabindex="0" aria-live="polite" aria-atomic="true">
-      <!-- Offres dynamiques ici -->
+     
     </div>
   </div>
   <div id="map" role="region" aria-label="Carte des offres"></div>
@@ -365,16 +365,16 @@ body.dark-mode .leaflet-popup-tip {
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-  // Variable globale pour stocker les offres
+  
   let offres = [];
 
-  // Conversion date YYYY-MM-DD → timestamp
+
   function toTimestamp(dateStr) {
     if (!dateStr) return null;
     return new Date(dateStr).getTime();
   }
 
-  // Calcul distance entre deux points lat/lon en km (Haversine)
+  
   function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -388,7 +388,7 @@ body.dark-mode .leaflet-popup-tip {
     return R * c;
   }
 
-  // Création icône FontAwesome personnalisée Leaflet
+  
   const iconHtml = '<i class="fa-solid fa-briefcase fa-lg" style="color:#2563eb;"></i>';
   const iconFa = L.divIcon({
     html: iconHtml,
@@ -398,14 +398,14 @@ body.dark-mode .leaflet-popup-tip {
     popupAnchor: [0, -40],
   });
 
-  // Récupération éléments DOM
+
   const listeOffresDiv = document.getElementById('offres-list-container');
   const filtreSpec = document.getElementById('filtre-spec');
   const filtreRayon = document.getElementById('filtre-rayon');
   const filtreDateDebut = document.getElementById('filtre-date-debut');
   const filtreDateFin = document.getElementById('filtre-date-fin');
 
-  // Initialisation map
+ 
   let map = L.map('map').setView([48.997, 2.375], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
@@ -448,7 +448,7 @@ body.dark-mode .leaflet-popup-tip {
       return true;
     });
 
-    // Liste offres
+   
     listeOffresDiv.innerHTML = '';
     filteredOffres.forEach((offre) => {
       const div = document.createElement('div');
@@ -467,11 +467,11 @@ body.dark-mode .leaflet-popup-tip {
       listeOffresDiv.appendChild(div);
     });
 
-    // Supprimer anciens markers
+ 
     Object.values(markers).forEach((m) => map.removeLayer(m));
     markers = {};
 
-    // Ajouter markers Leaflet avec popup complet
+   
     filteredOffres.forEach((offre) => {
       const marker = L.marker([offre.lat, offre.lon], { icon: iconFa }).addTo(map);
       marker.bindPopup(`
@@ -524,7 +524,7 @@ body.dark-mode .leaflet-popup-tip {
     });
   }
 
-  // Bouton mode sombre / clair
+
   const btnToggleTheme = document.getElementById('btn-toggle-theme');
   btnToggleTheme.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
@@ -533,7 +533,7 @@ body.dark-mode .leaflet-popup-tip {
       ? '<i class="fa-solid fa-sun"></i> Mode clair'
       : '<i class="fa-solid fa-moon"></i> Mode sombre';
 
-    // Met à jour les popups sur changement thème (fermer et rouvrir)
+  
     Object.values(markers).forEach((m) => {
       if (m.isPopupOpen()) {
         m.closePopup();
@@ -542,7 +542,7 @@ body.dark-mode .leaflet-popup-tip {
     });
   });
 
-  // Initialisation Firebase et chargement offres Firestore
+
   const firebaseConfig = {
     apiKey: "AIzaSyBW7j3au6zBqj7nFdoRF17MGOACulOetw4",
     authDomain: "stage-founder.firebaseapp.com",
@@ -562,7 +562,7 @@ body.dark-mode .leaflet-popup-tip {
         offres = snapshot.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
-        afficherOffresEtCarte(); // appelle ta fonction d'affichage avec les données Firestore
+        afficherOffresEtCarte(); 
       })
       .catch((error) => {
         console.error("Erreur récupération des offres :", error);
@@ -571,7 +571,7 @@ body.dark-mode .leaflet-popup-tip {
 
   chargerOffresFirestore();
 
-  // Écoute filtres
+ 
   filtreSpec.addEventListener("change", afficherOffresEtCarte);
   filtreRayon.addEventListener("input", afficherOffresEtCarte);
   filtreDateDebut.addEventListener("change", afficherOffresEtCarte);
@@ -581,3 +581,4 @@ body.dark-mode .leaflet-popup-tip {
 
 </body>
 </html>
+
