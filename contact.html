@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <style>
+    :root {
+      --blue-light: #2563eb;
+      --blue-dark: #1e40af;
+      --bg-light: #f3f4f6;
+      --bg-dark: #111827;
+      --text-light: #1f2937;
+      --text-dark: #f3f4f6;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 18px 80px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+    }
+    body.dark-mode header {
+      background: #1f2937;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .nav-left a {
+      color: red;
+      font-size: 0.9rem;
+      text-decoration: none;
+      margin-right: auto;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    nav a, nav button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
+    }
+    body.dark-mode nav a,
+    body.dark-mode nav button {
+      color: var(--text-dark);
+    }
+    nav a.active,
+    nav a:hover,
+    nav button:hover {
+      background-color: var(--blue-light);
+      color: white;
+      box-shadow: 0 0 12px var(--blue-light);
+      transform: scale(1.05);
+    }
+    body.dark-mode nav a.active,
+    body.dark-mode nav a:hover,
+    body.dark-mode nav button:hover {
+      background-color: var(--blue-dark);
+      box-shadow: 0 0 12px var(--blue-dark);
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 90px);
+      padding: 40px;
+    }
+    .form-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+    body.dark-mode .form-container {
+      background-color: #2c2c2c;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+    body.dark-mode input,
+    body.dark-mode textarea,
+    body.dark-mode select {
+      background-color: #444;
+      border-color: #777;
+      color: white;
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056cc;
+      transform: scale(1.02);
+    }
+    .success-message {
+      text-align: center;
+      font-size: 15px;
+      color: green;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-left">
+      <a href="login.html">Admin Login</a>
+    </div>
+    <nav>
+      <a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a>
+      <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a>
+      <a href="offres.html"><i class="fa-solid fa-briefcase"></i> Offres</a>
+      <a href="contact.html" class="active"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <button id="btn-toggle-theme">
+        <i class="fa-solid fa-moon"></i> Mode sombre
+      </button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="form-container">
+      <h1>Contact</h1>
+      <form id="contact-form">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" required placeholder="Ex : Descaves">
+
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" required placeholder="Ex : Guillaume">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="Ex : nom@email.com">
+
+        <label for="objet">Objet</label>
+        <select id="objet" required>
+          <option value="">-- Choisir un objet --</option>
+          <option value="Demande de stage">Demande de stage</option>
+          <option value="Information">Information</option>
+          <option value="Autre">Autre</option>
+        </select>
+
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" required placeholder="Votre message..."></textarea>
+
+        <button type="submit">Envoyer</button>
+        <div class="success-message" id="success-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBW7j3au6zBqj7nFdoRF17MGOACulOetw4",
+    authDomain: "stage-founder.firebaseapp.com",
+    projectId: "stage-founder",
+    storageBucket: "stage-founder.firebasestorage.app",
+    messagingSenderId: "7329902633",
+    appId: "1:7329902633:web:009733506a3c1ad23cec38"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nom = document.getElementById('nom').value;
+    const prenom = document.getElementById('prenom').value;
+    const email = document.getElementById('email').value;
+    const objet = document.getElementById('objet').value;
+    const message = document.getElementById('message').value;
+
+    db.collection("messages").add({
+      nom,
+      prenom,
+      email,
+      objet,
+      message,
+      date: new Date().toLocaleString(),
+      lu: false,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      document.getElementById('success-message').textContent = "Message envoyé avec succès.";
+      document.getElementById('contact-form').reset();
+    })
+    .catch((error) => {
+      console.error("Erreur Firestore :", error);
+      document.getElementById('success-message').textContent = "Erreur lors de l'envoi. Consultez la console.";
+    });
+  });
+
+  const toggleBtn = document.getElementById('btn-toggle-theme');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    toggleBtn.innerHTML = isDark
+      ? '<i class="fa-solid fa-sun"></i> Mode clair'
+      : '<i class="fa-solid fa-moon"></i> Mode sombre';
+  });
+  </script>
+</body>
+</html>
