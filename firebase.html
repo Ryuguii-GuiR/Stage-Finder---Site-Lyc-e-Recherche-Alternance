@@ -1,0 +1,18 @@
+// firebase.js
+// Charger ce fichier dans toutes les pages qui utilisent Firebase
+
+// Configuration Firebase (à remplacer si besoin par la tienne)
+const firebaseConfig = {
+  apiKey: "AIzaSyBW7j3au6zBqj7nFdoRF17MGOACulOetw4",
+  authDomain: "stage-founder.firebaseapp.com",
+  projectId: "stage-founder",
+  storageBucket: "stage-founder.appspot.com",
+  messagingSenderId: "7329902633",
+  appId: "1:7329902633:web:009733506a3c1ad23cec38",
+  measurementId: "G-FC4VMC4L0X"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();

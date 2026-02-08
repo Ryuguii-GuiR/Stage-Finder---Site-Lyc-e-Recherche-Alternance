@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Gestion des offres</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9fafb;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #1e3a8a;
+    }
+    #header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #username {
+      font-weight: 600;
+      color: #2563eb;
+    }
+    #logoutBtn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    /* Style de base pour tous les boutons */
+.btn-action {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin: 4px 4px 0 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease-out, box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  position: relative;
+  top: 0;
+}
+.btn-action:hover {
+  background: #1e40af;
+  box-shadow: 0 0 8px #1e40af;
+  transform: translateY(-4px) scale(1.05); /* Monte légèrement + zoom */
+}
+
+/* Variante rouge pour les suppressions */
+.btn-delete {
+  background: #dc2626;
+}
+.btn-delete:hover {
+  background: #b91c1c;
+  box-shadow: 0 0 8px #b91c1c;
+}
+
+/* Variante verte pour valider l’ajout */
+.btn-ajouter {
+  background: #16a34a;
+}
+.btn-ajouter:hover {
+  background: #15803d;
+  box-shadow: 0 0 8px #15803d;
+}
+
+/* Variante grise pour déconnexion */
+#logoutBtn {
+  background: #6b7280;
+}
+#logoutBtn:hover {
+  background: #4b5563;
+  box-shadow: 0 0 8px #4b5563;
+  transform: translateY(-4px) scale(1.05);
+}
+
+    #logoutBtn:hover {
+      background: #dc2626;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #1e3a8a;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 5px #2563eb;
+    }
+    button[type="submit"] {
+      background: #1e3a8a;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: 700;
+      transition: background 0.3s;
+    }
+    button[type="submit"]:hover {
+      background: #2563eb;
+    }
+    #message {
+      margin-top: 15px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .success-msg {
+      color: green;
+    }
+    .error-msg {
+      color: red;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th {
+      background-color: #2563eb;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    .btn-delete {
+      background: #dc2626;
+      border: none;
+      padding: 6px 12px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s;
+    }
+    .btn-delete:hover {
+      background: #b91c1c;
+    }
+
+    .btn-lu, .btn-repondre {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin: 4px 4px 0 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+.btn-lu:hover, .btn-repondre:hover {
+  background: #1e40af;
+  box-shadow: 0 0 8px #1e40af;
+  transform: scale(1.05);
+}
+
+    .btn-lu, .btn-repondre {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin: 4px 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+.btn-lu:hover, .btn-repondre:hover {
+  background: #1e40af;
+  box-shadow: 0 0 8px #1e40af;
+  transform: scale(1.05);
+}
+.btn-repondre i {
+  font-size: 1rem;
+}
+
+    #suggestions {
+      border: 1px solid #ccc;
+      max-height: 150px;
+      overflow-y: auto;
+      margin-top: 0;
+      padding-left: 0;
+      list-style-type: none;
+      position: relative;
+      z-index: 1000;
+      background: white;
+      border-radius: 0 0 8px 8px;
+    }
+    #suggestions div {
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    #suggestions div:hover {
+      background-color: #e0e7ff;
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<h1>Admin - Gestion des offres de stage</h1>
+<div id="header-bar">
+  <div>Connecté en tant que : <span id="username">Administrateur</span></div>
+  <button id="logoutBtn" onclick="logout()">Déconnexion</button>
+</div>
+<h2>Messagerie - Messages reçus</h2>
+  <table id="messagesTable">
+    <thead>
+      <tr><th>Nom</th><th>Email</th><th>Message</th><th>Action</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+<form id="offreForm" autocomplete="off">
+  <h2>Ajouter une offre</h2>
+
+  <label for="nomEntreprise">Nom de l'entreprise</label>
+  <input type="text" id="nomEntreprise" required />
+
+  <label for="adresse">Adresse</label>
+  <input type="text" id="adresse" placeholder="Tapez une adresse..." autocomplete="off" />
+  <div id="suggestions"></div>
+
+  <label for="latitude">Latitude</label>
+  <input type="number" id="latitude" step="any" readonly />
+
+  <label for="longitude">Longitude</label>
+  <input type="number" id="longitude" step="any" readonly />
+
+  <label for="telephone">Numéro de téléphone</label>
+  <input type="tel" id="telephone" required />
+
+  <label for="email">Adresse email</label>
+  <input type="email" id="email" required />
+
+  <label for="places">Nombre de places</label>
+  <input type="number" id="places" min="1" required />
+
+  <label for="specialisation">Spécialisation</label>
+  <select id="specialisation" required>
+    <option value="">-- Choisissez --</option>
+    <option value="SN">SN</option>
+    <option value="ARED">ARED</option>
+    <option value="MELEC">MELEC</option>
+    <option value="TSNPASS">TSNPASS</option>
+  </select>
+
+  <label for="dateDebut">Date de début de stage</label>
+  <input type="date" id="dateDebut" required />
+
+  <label for="dateFin">Date de fin de stage</label>
+  <input type="date" id="dateFin" required />
+
+  <button type="submit">Ajouter l'offre</button>
+</form>
+
+<div id="message"></div>
+
+<h2>Offres existantes</h2>
+<table id="offresTable" aria-label="Liste des offres">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Adresse</th>
+      <th>Spécialisation</th>
+      <th>Places</th>
+      <th>Période</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Offres ajoutées dynamiquement -->
+  </tbody>
+</table>
+
+<script>
+  const inputAdresse = document.getElementById('adresse');
+  const suggestionsDiv = document.getElementById('suggestions');
+  const inputLatitude = document.getElementById('latitude');
+  const inputLongitude = document.getElementById('longitude');
+  const form = document.getElementById('offreForm');
+  const messageDiv = document.getElementById('message');
+  const offresTableBody = document.querySelector('#offresTable tbody');
+
+  let debounceTimer;
+
+  inputAdresse.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    const query = inputAdresse.value.trim();
+    if (query.length < 3) {
+      suggestionsDiv.innerHTML = '';
+      return;
+    }
+    debounceTimer = setTimeout(() => {
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=5&countrycodes=fr`)
+        .then(response => response.json())
+        .then(data => {
+          suggestionsDiv.innerHTML = '';
+          if(data.length === 0){
+            suggestionsDiv.innerHTML = '<div>Aucune suggestion</div>';
+            return;
+          }
+          data.forEach(place => {
+            const div = document.createElement('div');
+            div.textContent = place.display_name;
+            div.addEventListener('click', () => {
+              inputAdresse.value = place.display_name;
+              inputLatitude.value = place.lat;
+              inputLongitude.value = place.lon;
+              suggestionsDiv.innerHTML = '';
+            });
+            suggestionsDiv.appendChild(div);
+          });
+        })
+        .catch(err => {
+          suggestionsDiv.innerHTML = '<div style="color:red;">Erreur de recherche</div>';
+          console.error(err);
+        });
+    }, 300);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!suggestionsDiv.contains(e.target) && e.target !== inputAdresse) {
+      suggestionsDiv.innerHTML = '';
+    }
+  });
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBW7j3au6zBqj7nFdoRF17MGOACulOetw4",
+    authDomain: "stage-founder.firebaseapp.com",
+    projectId: "stage-founder",
+    storageBucket: "stage-founder.firebasestorage.app",
+    messagingSenderId: "7329902633",
+    appId: "1:7329902633:web:009733506a3c1ad23cec38",
+    measurementId: "G-FC4VMC4L0X"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  function afficherOffres() {
+    offresTableBody.innerHTML = '';
+    db.collection('offres').orderBy('nom').get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          const offre = doc.data();
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${offre.nom}</td>
+            <td>${offre.adresse}</td>
+            <td>${offre.specialisation}</td>
+            <td>${offre.places}</td>
+            <td>${offre.dateDebut} - ${offre.dateFin}</td>
+            <td><button class="btn-delete" data-id="${doc.id}">Supprimer</button></td>
+          `;
+          offresTableBody.appendChild(tr);
+        });
+
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            if(confirm("Confirmez-vous la suppression de cette offre ?")) {
+              db.collection('offres').doc(id).delete()
+                .then(() => {
+                  messageDiv.textContent = "Offre supprimée avec succès.";
+                  messageDiv.className = "success-msg";
+                  afficherOffres();
+                })
+                .catch(err => {
+                  messageDiv.textContent = "Erreur lors de la suppression : " + err.message;
+                  messageDiv.className = "error-msg";
+                });
+            }
+          });
+        });
+      })
+      .catch(err => {
+        messageDiv.textContent = "Erreur récupération offres : " + err.message;
+        messageDiv.className = "error-msg";
+      });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const dateDebut = document.getElementById('dateDebut').value;
+    const dateFin = document.getElementById('dateFin').value;
+
+    if (!dateDebut || !dateFin) {
+      messageDiv.textContent = "Veuillez renseigner la période de stage complète.";
+      messageDiv.className = "error-msg";
+      return;
+    }
+    if (dateFin < dateDebut) {
+      messageDiv.textContent = "La date de fin doit être supérieure à la date de début.";
+      messageDiv.className = "error-msg";
+      return;
+    }
+
+    const offre = {
+      nom: document.getElementById('nomEntreprise').value.trim(),
+      adresse: document.getElementById('adresse').value.trim(),
+      lat: parseFloat(document.getElementById('latitude').value),
+      lon: parseFloat(document.getElementById('longitude').value),
+      telephone: document.getElementById('telephone').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      places: parseInt(document.getElementById('places').value),
+      specialisation: document.getElementById('specialisation').value,
+      dateDebut: dateDebut,
+      dateFin: dateFin
+    };
+
+    db.collection('offres').add(offre)
+      .then(() => {
+        messageDiv.textContent = "Offre ajoutée avec succès !";
+        messageDiv.className = "success-msg";
+        form.reset();
+        afficherOffres();
+      })
+      .catch(error => {
+        messageDiv.textContent = "Erreur lors de l'ajout : " + error.message;
+        messageDiv.className = "error-msg";
+      });
+  });
+
+  function logout() {
+    if (firebase.auth) {
+      firebase.auth().signOut().then(() => {
+        alert("Déconnecté avec succès !");
+        window.location.href = "login.html";
+      }).catch((error) => {
+        alert("Erreur lors de la déconnexion : " + error.message);
+      });
+    } else {
+      alert("Déconnecté !");
+      window.location.href = "index.html";
+    }
+  }
+
+  window.onload = () => {
+  afficherOffres();
+  afficherMessages();
+  document.getElementById('username').textContent = "Administrateur";
+};
+
+    
+  
+
+  function afficherMessages() {
+  db.collection("messages").orderBy("timestamp", "desc").get().then(snapshot => {
+    const tbody = document.querySelector("#messagesTable tbody");
+    tbody.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${data.nom}</td>
+        <td>${data.email}</td>
+        <td>${data.message}</td>
+        <td>${data.lu ? "✅" : "❌"}</td>
+        <td>
+          <button class="btn-lu" onclick="marquerLu('${doc.id}', ${!data.lu})">
+            <i class="fa-solid fa-eye${data.lu ? '-slash' : ''}"></i>
+            ${data.lu ? "Marquer non lu" : "Marquer lu"}
+          </button>
+          <a class="btn-repondre" href="mailto:${data.email}?subject=Réponse à votre message">
+            <i class="fa-solid fa-reply"></i> Répondre
+          </a>
+          <button class="btn-delete" onclick="supprimerMessage('${doc.id}')">Supprimer</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  });
+}
+
+
+
+    function supprimerMessage(id) {
+      if(confirm("Supprimer ce message ?")) {
+        db.collection("messages").doc(id).delete().then(() => afficherMessages());
+      }
+    }
+<!-- Mets ceci dans ton <script> de admin.html -->
+function afficherMessages() {
+  db.collection("messages").orderBy("timestamp", "desc").get().then(snapshot => {
+    const tbody = document.querySelector("#messagesTable tbody");
+    tbody.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${data.nom}</td>
+        <td>${data.email}</td>
+        <td>${data.message}</td>
+        <td>${data.lu ? "✅" : "❌"}</td>
+        <td>
+          <button class="btn-lu" onclick="marquerLu('${doc.id}', ${!data.lu})">
+            ${data.lu ? "Marquer non lu" : "Marquer lu"}
+          </button>
+          <a class="btn-repondre" href="mailto:${data.email}?subject=Réponse à votre message">
+            ✉️ Répondre
+          </a>
+          <button class="btn-delete" onclick="supprimerMessage('${doc.id}')">Supprimer</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  });
+}
+
+function marquerLu(id, nouveauStatut) {
+  db.collection("messages").doc(id).update({ lu: nouveauStatut })
+    .then(() => afficherMessages());
+}
+
+   
+</script>
+
+</body>
+</html>
