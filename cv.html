@@ -29,7 +29,7 @@ button:hover {
   background: linear-gradient(135deg, #2563eb, #1e3a8a);
 }
 .btn-suppr-exp {
-  background: linear-gradient(135deg, #dc2626, #b91c1c); /* rouge vif + profond */
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
   color: white;
   padding: 12px 24px;
   border: none;
@@ -72,7 +72,7 @@ button i {
   vertical-align: middle;
 }
 .btn-photo {
-  background: linear-gradient(135deg, #ec4899, #db2777); /* dégradé rose vif */
+  background: linear-gradient(135deg, #ec4899, #db2777); 
   color: white;
   padding: 12px 24px;
   border: none;
@@ -113,12 +113,12 @@ button i {
 }
 #cv-result {
   background-color: var(--section-bg);
-  box-shadow: none;  /* Supprime l'ombre ici aussi */
+  box-shadow: none;  
   border-radius: 0;
 }
 
 .cv-container {
-  margin-top: 80px;   /* espace entre boutons et CV */
+  margin-top: 80px;  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,7 +178,7 @@ button i {
 }
 
 
-/* Animation douce qui fait "flotter" la feuille */
+
 @keyframes floatSheet {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
@@ -345,11 +345,6 @@ nav a {
   font-weight: bold;
 }
 
-/* .cv-classy .section-title.diplome::before,
-.cv-classy-gris .section-title.diplome::before,
-.cv-classy-rose .section-title.diplome::before {
-  content: "\1F393";
-} */
 
 
 #cv-result > .cv-classy,
@@ -359,7 +354,7 @@ nav a {
   height: 100%;
   box-sizing: border-box;
 }
-/* Ombre et fond autour du CV */
+
 #cv-result {
   width: 21cm;
   height: 29.7cm;
@@ -384,7 +379,7 @@ nav a {
 
 
 :root {
-  --bg-color: #ffffff; /* blanc pur */
+  --bg-color: #ffffff; 
 }
 
 @keyframes bounceTilt {
@@ -411,9 +406,9 @@ body.dark-mode {
   --cv-feuille-shadow: 0 10px 30px rgba(255, 255, 255, 0.06);
 }
 body.dark-mode .experience-block {
-  background-color: #1e293b; /* Fond sombre lisible */
-  border-color: #4b5563;     /* Bordure sombre adaptée */
-  color: #f3f4f6;            /* Texte clair */
+  background-color: #1e293b;
+  border-color: #4b5563;     
+  color: #f3f4f6;           
 }
 .cv-classy,
 .cv-classy-gris,
@@ -424,11 +419,11 @@ body.dark-mode .experience-block {
   display: flex;
   flex-direction: row;
   font-family: 'Poppins', sans-serif;
-  box-shadow: none;  /* <-- Supprime l'ombre */
+  box-shadow: none; 
   transition: box-shadow 0.3s ease;
 }
 body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* rend l’icône blanche */
+  filter: invert(1);
 }
 
 header {
@@ -489,7 +484,7 @@ nav a, nav button {
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
   height: 42px;
   line-height: 1;
-  margin-top: 1px; /* petit ajustement vertical */
+  margin-top: 1px;
 }
 
 #btn-toggle-theme i {
@@ -622,7 +617,7 @@ body.dark-mode #cv-result {
 
 body.dark-mode {
   --cv-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-  --cv-feuille-shadow: 0 10px 30px rgba(255, 255, 255, 0.06); /* ombre blanche subtile */
+  --cv-feuille-shadow: 0 10px 30px rgba(255, 255, 255, 0.06); 
 }
 #darkModeToggle {
   position: fixed;
@@ -635,7 +630,7 @@ body.dark-mode {
   padding: 12px 24px;
   border-radius: 30px;
   font-weight: bold;
-  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6); /* EFFET LUMIÈRE BLEUE */
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6); 
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -645,7 +640,7 @@ body.dark-mode {
 
 #darkModeToggle:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 30px rgba(37, 99, 235, 0.9); /* glow encore plus fort au survol */
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.9); /
 }
 
 
@@ -653,19 +648,19 @@ body.dark-mode {
 body.dark-mode input,
 body.dark-mode textarea,
 body.dark-mode select {
-  background-color: #1e293b;  /* gris-bleu sombre */
+  background-color: #1e293b; 
   color: #f3f4f6;
   border: 1px solid #4b5563;
 }
 .cv-classy .right-section,
 .cv-classy-gris .right-section,
 .cv-classy-rose .right-section {
-  color: #1f2937 !important; /* texte foncé lisible, même en mode sombre */
+  color: #1f2937 !important; 
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #94a3b8; /* gris clair pour placeholder */
+  color: #94a3b8; 
 }
 
     body.dark-mode {
@@ -678,9 +673,9 @@ textarea::placeholder {
     }
 
 body.dark-mode #drop-zone {
-  background-color: #1e293b;       /* Fond sombre lisible */
-  border-color: #4b5563;           /* Bordure bien visible */
-  color: #f3f4f6;                  /* Texte clair */
+  background-color: #1e293b;       
+  border-color: #4b5563;           
+  color: #f3f4f6;                  
 }
 
 .cv-wrapper {
@@ -694,8 +689,8 @@ body.dark-mode #drop-zone {
 
 
 body.dark-mode #drop-zone:hover {
-  background-color: #334155;       /* Fond au survol */
-  border-color: #64748b;           /* Bordure au survol */
+  background-color: #334155;       
+  border-color: #64748b;          
 }
 
     body {
@@ -710,7 +705,7 @@ body.dark-mode #drop-zone:hover {
   text-align: center;
   font-size: 4.8rem;
   font-weight: 700;
-  color: #1e3a8a;  /* Bleu foncé */
+  color: #1e3a8a;  
   margin-bottom: 40px;
   position: relative;
   animation: fadeInTitle 1s ease-out;
@@ -772,14 +767,14 @@ h1::after {
     }
     input, textarea, select {
   width: 100%;
-  padding: 14px 16px;           /* un peu plus d'espace intérieur */
+  padding: 14px 16px;         
   border-radius: 8px;
   border: 1px solid #ccc;
-  margin-top: 8px;              /* un peu plus d'espace au dessus */
+  margin-top: 8px;             
   box-sizing: border-box;
-  font-size: 1.1rem;            /* texte plus lisible */
+  font-size: 1.1rem;            
   font-family: 'Poppins', sans-serif;
-  resize: none;                 /* empêche redimensionnement des textarea */
+  resize: none;               
 }
 
     button {
@@ -1086,7 +1081,7 @@ nav button {
   <i class="fa-solid fa-trash"></i> Supprimer une expérience
 </button>
 
-<!-- Nouvel élément DIV pour forcer le bouton photo en dessous -->
+
 <div style="margin-top: 20px;">
   <label for="fileInput" class="btn-photo" style="cursor: pointer; display: inline-flex; align-items: center;">
     <i class="fa-solid fa-file-image"></i> Choisir une photo
@@ -1457,8 +1452,8 @@ function genererOptionsAnnees() {
 function toggleDarkMode() {
     const sound = document.getElementById('soundToggle');
     sound.currentTime = 0;
-    sound.volume = 0.2;   // règle le volume du son, à adapter si besoin
-    sound.play().catch(() => {}); // joue le son, ignore erreur si bloqué
+    sound.volume = 0.2;  
+    sound.play().catch(() => {});
 
     const body = document.body;
     const btn = document.getElementById("darkModeToggle");
@@ -1488,7 +1483,7 @@ function toggleDarkMode() {
       btn.innerHTML = '<i class="fa-solid fa-moon"></i> Mode sombre';
     }
 
-    // Hover sound sur les .nav-button
+  
     const hoverSound = document.getElementById('hoverSound');
     const navButtons = document.querySelectorAll('.nav-button');
 
@@ -1514,7 +1509,7 @@ function genererCV() {
     alert("⚠️ Merci de remplir au minimum le nom complet et l’email.");
     return;
   }
-  // le reste de ta fonction...
+
 }
   const btnToggle = document.getElementById('btn-toggle-theme');
     btnToggle.addEventListener('click', () => {
@@ -1528,3 +1523,4 @@ function genererCV() {
 </script>
 </body>
 </html>
+
